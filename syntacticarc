@@ -1,2 +1,3 @@
 #!/bin/bash
-python $(dirname $0)/syntacticarc.py "$@"
+DIR=$(dirname $(readlink $0))
+python $DIR/syntacticarc.py "$@"
