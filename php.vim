@@ -40,7 +40,7 @@ function! SyntaxCheckers_php_GetLocList()
 
     let errors = []
 
-    let makeprg="syntacticarc.py ".shellescape(expand('%'))
+    let makeprg="syntacticarc ".shellescape(expand('%'))
     let errorformat='%f:%l:%c:%t:%m'
     let errors = errors + SyntasticMake({ 'makeprg': makeprg, 'errorformat': errorformat })
 
