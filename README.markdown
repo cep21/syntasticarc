@@ -4,7 +4,7 @@ INSTALL
 =======
 
 1. add syntacticarc to your path.
-2. Inside vim
+2. Inside vim(or just add to your vimrc)
 
          :set makeprg=syntasticarc
          :set errorformat=%f:%l:%c:%t:%m

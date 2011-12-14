@@ -46,8 +46,8 @@ def runarc(filename):
   if cmd.returncode == 0:
     return {}
   res = {}
-  parts = [json.loads(result[0]), json.loads(result[1])]
-  for part in parts:
+  for r in result:
+      part = json.loads(r.strip())
       for filename, results in part.iteritems():
           if filename not in res:
               res[filename] = []
