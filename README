@@ -1,0 +1,8 @@
+Wrapper to add arc lint support to vim.  Set your vim
+
+makeprg="syntacticarc"
+errorformat='%f:%l:%c:%t:%m'
+
+
+Can also support syntactic.  Just replace syntastic/syntax_checkers/php.vim
+with the provided one
