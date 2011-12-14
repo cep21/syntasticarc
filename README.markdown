@@ -13,5 +13,8 @@ INSTALL
 
     :make
 
-Can also support syntactic (https://github.com/scrooloose/syntastic).
+SYNTASTIC
+=========
+
+Can also support syntastic (https://github.com/scrooloose/syntastic).
 Just replace syntastic/syntax_checkers/php.vim with the provided one here.
