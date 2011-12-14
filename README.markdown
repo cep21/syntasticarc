@@ -13,6 +13,13 @@ INSTALL
 
          :make
 
+
+OPTIONS
+=======
+
+You can change the arc path by setting SYNTASTIC_ARC in your env
+
+
 SYNTASTIC
 =========
 
