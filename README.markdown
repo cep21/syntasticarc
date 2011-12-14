@@ -3,15 +3,15 @@ Wrapper to add arc lint support to vim.
 INSTALL
 =======
 
-(1) add syntacticarc to your path.
-(2) Inside vim
+1. add syntacticarc to your path.
+2. Inside vim
 
-    :set makeprg=syntasticarc
-    :set errorformat=%f:%l:%c:%t:%m
+         :set makeprg=syntasticarc
+         :set errorformat=%f:%l:%c:%t:%m
 
-(3) Inside vim, you can now type build with
+3. Inside vim, you can now type build with
 
-    :make
+         :make
 
 SYNTASTIC
 =========
