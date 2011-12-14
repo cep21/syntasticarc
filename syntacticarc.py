@@ -28,6 +28,10 @@ from optparse import OptionParser
 import sys, json, pprint, pickle, hashlib, gzip, os
 
 def runarc(filename):
+    """
+    Run arc lint on the filename provided.  If none, will
+    lint the entire repository
+    """
   arc_binary = os.environ.get('SYNTACTIC_ARC', 'arc')
   if filename is None:
       cmd = Popen([arc_binary , 'lint', '--output' , 'json',
@@ -52,6 +56,10 @@ def runarc(filename):
   return res
 
 def toint_or_other(item, other):
+    """
+    Small helper to get around inconsistent lint output.
+    Converts item to an int and returns other in failure.
+    """
     try:
         return int(item)
     except:
@@ -59,6 +67,9 @@ def toint_or_other(item, other):
 
 
 def getArcResults(output):
+    """
+    Converts json output from arc into something vim can understand
+    """
   res = []
   for filename, results in output.iteritems():
     for err in results:
@@ -76,14 +87,22 @@ def getArcResults(output):
   return res
 
 class OndiskDb():
+    """
+    Helper class to store results on disc
+    """
     DB_FILE = '/tmp/syntacticarc'
     DAEMON_RUNNING = 'running'
     def getResults(self, filename):
+        """Gets previous results for running lint on a filename
+        """
       db = self.readDb()
       file_sha = hashlib.sha1(open(filename, 'r').read()).hexdigest()
       return db.get(filename, {}).get(file_sha, None)
 
     def readDb(self):
+        """
+        Reads the entire DB and returns the results
+        """
       try:
         f = gzip.open(self.DB_FILE, 'r+')
         return pickle.load(f)
@@ -91,6 +110,9 @@ class OndiskDb():
         return {}
 
     def saveDb(self, filename, sha, res):
+        """
+        Appends to the run results for filename the result res
+        """
       old_db = self.readDb()
       if filename not in old_db:
         old_db[filename] = {}
@@ -119,6 +141,7 @@ if __name__ == '__main__':
     if not options.blocking:
       orig_sha = hashlib.sha1(open(args[0], 'r').read()).hexdigest()
       dir = os.getcwd()
+      # Give vim something to know we're running in the background
       print "%s:1:1:n:Generating results" % args[0]
       if old_res == 'running':
         sys.exit(0)
@@ -126,7 +149,8 @@ if __name__ == '__main__':
       sys.stdout.flush()
       import traceback
       createDaemon()
-      os.chdir(dir) # Change back to original directory so arc works
+      # Change back to original directory so arc works
+      os.chdir(dir)
     try:
         if len(args) == 0:
           arcres = runarc(None)
