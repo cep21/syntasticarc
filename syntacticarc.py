@@ -41,7 +41,22 @@ def runarc(filename):
   # Even with json output, arc prints non-json output for returncode 0
   if cmd.returncode == 0:
     return {}
-  return json.loads(result[0])
+  res = {}
+  parts = [json.loads(result[0]), json.loads(result[1])]
+  for part in parts:
+      for filename, results in part.iteritems():
+          if filename not in res:
+              res[filename] = []
+          res[filename].extend(results)
+
+  return res
+
+def toint_or_other(item, other):
+    try:
+        return int(item)
+    except:
+        return other
+
 
 def getArcResults(output):
   res = []
@@ -52,14 +67,12 @@ def getArcResults(output):
         severity = err['severity'][0]
         if severity == 'a':
           severity = 'n'
-      desc = err['name'].strip()
-      if desc == filename:
-        desc = ""
-      else:
-        desc += ":"
-      if 'desc' in err: # Requires patched arc
-        desc += err['desc'].strip()
-      res.append("%s:%d:%d:%s:%s" % (filename, int(err['line']), err['char'], severity, desc.strip()))
+      desc = [err['name'].strip()]
+      if desc[0] == filename:
+        desc = []
+      desc.append(err.get('code', '').strip())
+      desc.append(err.get('description', '').strip())
+      res.append("%s:%d:%d:%s:%s" % (filename, toint_or_other(err['line'], 0), toint_or_other(err['char'], 0), severity, " ".join(desc)))
   return res
 
 class OndiskDb():
