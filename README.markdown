@@ -11,7 +11,7 @@ INSTALL
 
 3. Inside vim, you can now build and navigate errors
 
-         :make  """ Runts lint
+         :make  """ Runs lint
          :copen """ Open quickfix window
          :cf    """ Goto first lint error
          :cn    """ Goto next error
