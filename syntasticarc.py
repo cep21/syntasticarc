@@ -28,11 +28,11 @@ from optparse import OptionParser
 import sys, json, pprint, pickle, hashlib, gzip, os
 
 def runarc(filename):
-    """
-    Run arc lint on the filename provided.  If none, will
-    lint the entire repository
-    """
-  arc_binary = os.environ.get('SYNTACTIC_ARC', 'arc')
+  """
+  Run arc lint on the filename provided.  If none, will
+  lint the entire repository
+  """
+  arc_binary = os.environ.get('SYNTASTIC_ARC', 'arc')
   if filename is None:
       cmd = Popen([arc_binary , 'lint', '--output' , 'json',
           '--advice', '--never-apply-patches'], stdout=PIPE)
@@ -67,9 +67,9 @@ def toint_or_other(item, other):
 
 
 def getArcResults(output):
-    """
-    Converts json output from arc into something vim can understand
-    """
+  """
+  Converts json output from arc into something vim can understand
+  """
   res = []
   for filename, results in output.iteritems():
     for err in results:
@@ -83,7 +83,7 @@ def getArcResults(output):
         desc = []
       desc.append(err.get('code', '').strip())
       desc.append(err.get('description', '').strip())
-      res.append("%s:%d:%d:%s:%s" % (filename, toint_or_other(err['line'], 0), toint_or_other(err['char'], 0), severity, " ".join(desc)))
+      res.append("%s:%d:%d:%s:%s" % (filename, toint_or_other(err['line'], 1), toint_or_other(err['char'], 1), severity, " ".join(desc)))
   return res
 
 class OndiskDb():
@@ -93,16 +93,17 @@ class OndiskDb():
     DB_FILE = '/tmp/syntacticarc'
     DAEMON_RUNNING = 'running'
     def getResults(self, filename):
-        """Gets previous results for running lint on a filename
-        """
+      """
+      Gets previous results for running lint on a filename
+      """
       db = self.readDb()
       file_sha = hashlib.sha1(open(filename, 'r').read()).hexdigest()
       return db.get(filename, {}).get(file_sha, None)
 
     def readDb(self):
-        """
-        Reads the entire DB and returns the results
-        """
+      """
+      Reads the entire DB and returns the results
+      """
       try:
         f = gzip.open(self.DB_FILE, 'r+')
         return pickle.load(f)
@@ -110,9 +111,9 @@ class OndiskDb():
         return {}
 
     def saveDb(self, filename, sha, res):
-        """
-        Appends to the run results for filename the result res
-        """
+      """
+      Appends to the run results for filename the result res
+      """
       old_db = self.readDb()
       if filename not in old_db:
         old_db[filename] = {}

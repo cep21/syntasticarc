@@ -6,7 +6,7 @@ INSTALL
 (1) add syntacticarc to your path.
 (2) Inside vim
 
-    :set makeprg=syntacticarc
+    :set makeprg=syntasticarc
     :set errorformat=%f:%l:%c:%t:%m
 
 (3) Inside vim, you can now type build with
