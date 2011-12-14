@@ -9,10 +9,13 @@ INSTALL
          :set makeprg=syntasticarc
          :set errorformat=%f:%l:%c:%t:%m
 
-3. Inside vim, you can now type build with
+3. Inside vim, you can now build and navigate errors
 
-         :make
-
+         :make  """ Runts lint
+         :copen """ Open quickfix window
+         :cf    """ Goto first lint error
+         :cn    """ Goto next error
+         
 
 OPTIONS
 =======
