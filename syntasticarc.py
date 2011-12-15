@@ -83,7 +83,7 @@ def getArcResults(output):
         desc = []
       desc.append(err.get('code', '').strip())
       desc.append(err.get('description', '').strip())
-      res.append("%s:%d:%d:%s:%s" % (filename, toint_or_other(err['line'], 1), toint_or_other(err['char'], 1), severity, " ".join(desc)))
+      res.append(("%s:%d:%d:%s:%s" % (filename, toint_or_other(err['line'], 1), toint_or_other(err['char'], 1), severity, " ".join(desc))).replace("\n", " "))
   return res
 
 class OndiskDb():
