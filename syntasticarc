@@ -1,3 +1,6 @@
 #!/bin/bash
-DIR=$(dirname $(readlink $0))
+# Taken from http://stackoverflow.com/questions/59895/can-a-bash-script-tell-what-directory-its-stored-in
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ] ; do SOURCE="$(readlink "$SOURCE")"; done
+DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 python $DIR/syntasticarc.py "$@"

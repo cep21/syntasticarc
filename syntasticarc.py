@@ -66,7 +66,7 @@ def toint_or_other(item, other):
         return other
 
 
-def getArcResults(output):
+def getArcResults(output, make_compatable):
   """
   Converts json output from arc into something vim can understand
   """
@@ -83,7 +83,11 @@ def getArcResults(output):
         desc = []
       desc.append(err.get('code', '').strip())
       desc.append(err.get('description', '').strip())
-      res.append(("%s:%d:%d:%s:%s" % (filename, toint_or_other(err['line'], 1), toint_or_other(err['char'], 1), severity, " ".join(desc))).replace("\n", " "))
+      if make_compatable:
+        res.append(("%s:%d:%s" % (filename, toint_or_other(err['line'], 1), " ".join(desc))).replace("\n", " "))
+      else:
+        res.append(("%s:%d:%d:%s:%s" % (filename, toint_or_other(err['line'], 1), toint_or_other(err['char'], 1), severity, " ".join(desc))).replace("\n", " "))
+
   return res
 
 class OndiskDb():
@@ -124,12 +128,16 @@ if __name__ == '__main__':
   parser = OptionParser()
   parser.add_option("-b", "--blocking", dest="blocking",
     help="If set, will not use daemon", action='store_true', default=False)
+  parser.add_option("-m", "--make-compatable", dest="make_compatable",
+    help="If set, will generate make compatable output.", action='store_true', default=False)
   (options, args) = parser.parse_args()
   if len(args) > 1:
       parser.error("Incorrect number of args")
   if len(args) == 0:
       options.blocking = True
 
+  if options.make_compatable:
+    options.blocking = True
   if not options.blocking:
     db = OndiskDb()
     old_res = db.getResults(args[0])
@@ -158,7 +166,7 @@ if __name__ == '__main__':
         else:
           arcres = runarc(args[0])
 
-        p = getArcResults(arcres)
+        p = getArcResults(arcres, options.make_compatable)
         if not options.blocking:
           db.saveDb(args[0], orig_sha, p)
         else:
