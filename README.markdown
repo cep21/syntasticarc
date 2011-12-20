@@ -23,11 +23,10 @@ EMACS
 -----
 
 1. add syntacticarc to your emacs path
-2. Inside emacs
+2. Inside emacs.  Note, the '-m' produces 'make' compatible output
 
           ESC-x compile
           syntacticarc -m
-          ## -m produces 'make' compatible output
 
 3.  Navigate compile errors with
 
