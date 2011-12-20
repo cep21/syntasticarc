@@ -1,4 +1,4 @@
-Wrapper to add arc lint support to vim.
+Wrapper to add arc lint support to vim and emacs
 
 INSTALL
 =======
@@ -27,6 +27,7 @@ EMACS
 
           ESC-x compile
           syntacticarc -m
+          ## -m produces 'make' compatible output
 
 3.  Navigate compile errors with
 
@@ -45,5 +46,5 @@ You can change the arc path by setting SYNTASTIC_ARC in your env
 SYNTASTIC
 =========
 
-Can also support syntastic (https://github.com/scrooloose/syntastic).
+Can also support syntastic for vim (https://github.com/scrooloose/syntastic).
 Just replace syntastic/syntax_checkers/php.vim with the provided one here.
