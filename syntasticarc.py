@@ -47,7 +47,10 @@ def runarc(filename):
     return {}
   res = {}
   for r in result:
-      part = json.loads(r.strip())
+      try:
+          part = json.loads(r.strip())
+      except ValueError as e:
+          raise ValueError("Unable to json parse: " + r.strip())
       for filename, results in part.iteritems():
           if filename not in res:
               res[filename] = []
