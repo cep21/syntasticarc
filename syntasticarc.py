@@ -34,11 +34,11 @@ def runarc(filename):
   """
   arc_binary = os.environ.get('SYNTASTIC_ARC', 'arc')
   if filename is None:
-      cmd = Popen([arc_binary , 'lint', '--output' , 'json',
-          '--advice'], stdout=PIPE)
+      cmd = Popen([arc_binary , 'lint', '--output' , 'json'
+          ], stdout=PIPE)
   else:
-      cmd = Popen([arc_binary , 'lint', '--lintall', '--output' , 'json',
-          '--advice', filename], stdout=PIPE)
+      cmd = Popen([arc_binary , 'lint', '--lintall', '--output' , 'json'
+          , filename], stdout=PIPE)
   cmd.wait()
   result = cmd.stdout.readlines()
 
