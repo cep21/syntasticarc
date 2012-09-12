@@ -1,5 +1,11 @@
 Wrapper to add arc lint support to vim and emacs
 
+![syntasticarc animated demo](http://i.imgur.com/mfz0h.gif)
+
+Example view
+
+![syntasticarc example view](http://i.imgur.com/lrmVb.png)
+
 INSTALL
 =======
 
