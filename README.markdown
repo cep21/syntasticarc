@@ -12,7 +12,7 @@ INSTALL
 VIM
 ---
 
-1. add syntacticarc to your path.
+1. add syntasticarc to your path.
 2. Inside vim(or just add to your vimrc)
 
          :set makeprg=syntasticarc
@@ -28,11 +28,11 @@ VIM
 EMACS
 -----
 
-1. add syntacticarc to your emacs path
+1. add syntasticarc to your emacs path
 2. Inside emacs.  Note, the '-m' produces 'make' compatible output
 
           ESC-x compile
-          syntacticarc -m
+          syntasticarc -m
 
 3.  Navigate compile errors with
 
